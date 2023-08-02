@@ -3,7 +3,7 @@
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'NAME': 'mydatabase1',
         'SECRET': 'YSBmYWtlIHBhc3N3b3JkIHRoYXQncyByZWFsbHkgbG9',
     }
 }
