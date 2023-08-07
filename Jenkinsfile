@@ -5,7 +5,7 @@ pipeline {
     environment {
       // The following variable is required for a Semgrep Cloud Platform-connected scan:
       SEMGREP_APP_TOKEN = credentials('SEMGREP_APP_TOKEN')
-      SEMGREP_BASELINE_REF = "master"
+      SEMGREP_BASELINE_REF = "origin/master"
       SEMGREP_BRANCH = "${env.GIT_BRANCH}"
       SEMGREP_COMMIT = "${env.GIT_COMMIT}"
       SEMGREP_REPO_URL = "https://github.com"
