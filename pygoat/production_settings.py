@@ -1,4 +1,4 @@
-
+mysql.connector.connect(password="thisis3definitely4apassword5")
 
 DATABASES = {
     'default': {
