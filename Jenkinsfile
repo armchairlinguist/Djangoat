@@ -16,13 +16,13 @@ pipeline {
       when {
         branch "PR-*"
       }
-      // Ideally want to transform this to the merge-base output of CHANGE_BRANCH and CHANGE_TARGET
       steps {
+        sh 'MERGE_BASE=$(git merge-base $CHANGE_BRANCH $CHANGE_TARGET)'
         sh '''docker pull returntocorp/semgrep && \
             docker run \
             -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
             -e SEMGREP_REPO_NAME=$SEMGREP_REPO_NAME \
-            -e SEMGREP_BASELINE_REF="master" \
+            -e SEMGREP_BASELINE_REF=$MERGE_BASE \
             -v "$(pwd):$(pwd)" --workdir $(pwd) \
             returntocorp/semgrep semgrep ci '''      
       }
