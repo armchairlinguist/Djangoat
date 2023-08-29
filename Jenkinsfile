@@ -17,7 +17,7 @@ pipeline {
         branch "PR-*"
       }
       steps {
-        sh 'MERGE_BASE=$(git merge-base $CHANGE_BRANCH $CHANGE_TARGET)'
+        sh 'MERGE_BASE=$(git merge-base $GIT_BRANCH $CHANGE_TARGET)'
         sh '''docker pull returntocorp/semgrep && \
             docker run \
             -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
@@ -27,7 +27,7 @@ pipeline {
             returntocorp/semgrep semgrep ci '''      
       }
     }
-    stage('semgrep--scan') {
+    stage('semgrep-scan') {
       when {
         branch "master"
       }
