@@ -36,13 +36,12 @@ pipeline {
       steps {
         sh '''chmod -R a+w ${WORKSPACE}/armchairlinguist/Djangoat/
               cd ${WORKSPACE}/armchairlinguist/Djangoat/
-              git checkout $CHANGE_TARGET
-              git checkout $CHANGE_BRANCH
               docker pull returntocorp/semgrep && \
               docker run \
               -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
               -e SEMGREP_REPO_NAME=$SEMGREP_REPO_NAME \
-              -e SEMGREP_BASELINE_REF=$(git merge-base $CHANGE_BRANCH $CHANGE_TARGET) \
+              -e SEMGREP_BASELINE_REF=$(git merge-base remotes/origin/master HEAD) \
+              -e SEMGREP_BRANCH=$CHANGE_BRANCH \
               -v "$(pwd):$(pwd)" --workdir $(pwd) \
               returntocorp/semgrep semgrep ci
            '''      
