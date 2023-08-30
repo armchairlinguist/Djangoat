@@ -34,6 +34,9 @@ pipeline {
         branch "PR-*"
       }
       steps {
+        sh '''chmod -R a+w ${WORKSPACE}/armchairlinguist/Djangoat/
+              cd ${WORKSPACE}/armchairlinguist/Djangoat/
+           '''
         sh '''docker pull returntocorp/semgrep && \
             docker run \
             -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
