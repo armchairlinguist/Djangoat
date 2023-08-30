@@ -11,8 +11,8 @@ pipeline {
     // Set repo name to expected format
     SEMGREP_REPO_NAME = env.GIT_URL.replaceFirst(/^https:\/\/github.com\/(.*)$/, '$1')
   }
-/*  stages {
-    stage('Print-Vars') {
+  stages {
+/*    stage('Print-Vars') {
       steps {
         sh 'printenv | sort'
       }
