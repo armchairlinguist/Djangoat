@@ -9,7 +9,7 @@ pipeline {
     // Required for a Semgrep Cloud Platform-connected scan:
     SEMGREP_APP_TOKEN = credentials('SEMGREP_APP_TOKEN')
     // Set repo name to expected format
-    //SEMGREP_REPO_NAME = env.GIT_URL.replaceFirst(/^https:\/\/github.com\/(.*)$/, '$1')
+    REPO_NAME = "armchairlinguist/Djangoat"
   }
   stages {
     stage('Print-Vars') {
@@ -22,9 +22,9 @@ pipeline {
         cleanWs()
         script {
           if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'main') {
-            checkoutRepo("armchairlinguist/Djangoat", "master", 1, "master", "https://github.com/")
+            checkoutRepo(env.REPO_NAME, "master", 1, "master", "https://github.com/")
           } else {
-            checkoutRepo("armchairlinguist/Djangoat", env.CHANGE_BRANCH, 100, "master", "https://github.com/")
+            checkoutRepo(env.REPO_NAME, env.CHANGE_BRANCH, 100, "master", "https://github.com/")
           }
         }
       }
@@ -34,12 +34,12 @@ pipeline {
         branch "PR-*"
       }
       steps {
-        sh '''chmod -R a+w ${WORKSPACE}/armchairlinguist/Djangoat/
-              cd ${WORKSPACE}/armchairlinguist/Djangoat/
+        sh '''chmod -R a+w ${WORKSPACE}/${REPO_NAME}
+              cd ${WORKSPACE}/${REPO_NAME}
               docker pull returntocorp/semgrep && \
               docker run \
               -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
-              -e SEMGREP_REPO_NAME=$SEMGREP_REPO_NAME \
+              -e SEMGREP_REPO_NAME=${REPO_NAME} \
               -e SEMGREP_BASELINE_REF=$(git merge-base remotes/origin/master HEAD) \
               -e SEMGREP_BRANCH=$CHANGE_BRANCH \
               -v "$(pwd):$(pwd)" --workdir $(pwd) \
