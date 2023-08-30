@@ -36,7 +36,7 @@ pipeline {
       steps {
         sh '''chmod -R a+w ${WORKSPACE}/armchairlinguist/Djangoat/
               cd ${WORKSPACE}/armchairlinguist/Djangoat/
-              git checkout -b $CHANGE_TARGET
+              git checkout $CHANGE_TARGET
               git checkout $CHANGE_BRANCH
               docker pull returntocorp/semgrep && \
               docker run \
