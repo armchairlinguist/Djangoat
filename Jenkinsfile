@@ -22,9 +22,9 @@ pipeline {
         cleanWs()
         script {
           if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'main') {
-            checkoutRepo("armchairlinguist/Djangoat", master, 1, master, "https://github.com/")
+            checkoutRepo("armchairlinguist/Djangoat", "master", 1, "master", "https://github.com/")
           } else {
-            checkoutRepo("armchairlinguist/Djangoat", env.CHANGE_BRANCH, 100, master, "https://github.com/")
+            checkoutRepo("armchairlinguist/Djangoat", env.CHANGE_BRANCH, 100, "master", "https://github.com/")
           }
         }
       }
