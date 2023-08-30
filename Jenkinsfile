@@ -19,6 +19,7 @@ pipeline {
     }
     stage("Checkout") {
       steps {
+        cleanWs()
         script {
           if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'main') {
             checkoutRepo("armchairlinguist/Djangoat", master, 1, master, "https://github.com/")
@@ -54,12 +55,6 @@ pipeline {
             -v "$(pwd):$(pwd)" --workdir $(pwd) \
             returntocorp/semgrep semgrep ci '''      
       }
-    }
-  }
-  post {
-    // Clean after build
-    always {
-      cleanWs()
     }
   }
 }
