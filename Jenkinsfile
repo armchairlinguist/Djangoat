@@ -36,14 +36,14 @@ pipeline {
       steps {
         sh '''chmod -R a+w ${WORKSPACE}/armchairlinguist/Djangoat/
               cd ${WORKSPACE}/armchairlinguist/Djangoat/
-           '''
-        sh '''docker pull returntocorp/semgrep && \
-            docker run \
-            -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
-            -e SEMGREP_REPO_NAME=$SEMGREP_REPO_NAME \
-            -e SEMGREP_BASELINE_REF=$(git merge-base $BRANCH_NAME $CHANGE_TARGET) \
-            -v "$(pwd):$(pwd)" --workdir $(pwd) \
-            returntocorp/semgrep semgrep ci '''      
+              docker pull returntocorp/semgrep && \
+              docker run \
+              -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
+              -e SEMGREP_REPO_NAME=$SEMGREP_REPO_NAME \
+              -e SEMGREP_BASELINE_REF=$(git merge-base $BRANCH_NAME $CHANGE_TARGET) \
+              -v "$(pwd):$(pwd)" --workdir $(pwd) \
+              returntocorp/semgrep semgrep ci
+           '''      
       }
     }
     stage('semgrep-scan') {
