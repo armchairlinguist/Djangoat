@@ -40,7 +40,7 @@ pipeline {
               docker run \
               -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
               -e SEMGREP_REPO_NAME=$SEMGREP_REPO_NAME \
-              -e SEMGREP_BASELINE_REF=$(git merge-base $BRANCH_NAME $CHANGE_TARGET) \
+              -e SEMGREP_BASELINE_REF=$(git merge-base $CHANGE_BRANCH $CHANGE_TARGET) \
               -v "$(pwd):$(pwd)" --workdir $(pwd) \
               returntocorp/semgrep semgrep ci
            '''      
