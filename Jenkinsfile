@@ -12,12 +12,12 @@ pipeline {
     //SEMGREP_REPO_NAME = env.GIT_URL.replaceFirst(/^https:\/\/github.com\/(.*)$/, '$1')
   }
   stages {
-/*    stage('Print-Vars') {
+    stage('Print-Vars') {
       steps {
         sh 'printenv | sort'
       }
     }
-*/    stage("Checkout") {
+    stage("Checkout") {
       steps {
         cleanWs()
         script {
