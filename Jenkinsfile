@@ -18,8 +18,10 @@ pipeline {
       }
       steps {
         sh '''git fetch --no-tags --force --progress -- $GIT_URL +refs/heads/$CHANGE_TARGET:refs/remotes/origin/$CHANGE_TARGET
-              git checkout -b $CHANGE_TARGET origin/$CHANGE_TARGET
-              git checkout $GIT_BRANCH
+              git symbolic-ref HEAD refs/heads/$CHANGE_TARGET
+              git reset --hard origin/$CHANGE_TARGET
+              git symbolic-ref HEAD refs/heads/$GIT_BRANCH
+              git reset --hard origin/$GIT_BRANCH
            '''
         sh '''docker pull returntocorp/semgrep && \
             docker run \
