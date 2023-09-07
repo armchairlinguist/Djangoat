@@ -22,14 +22,14 @@ pipeline {
               git checkout -b $CHANGE_TARGET origin/$CHANGE_TARGET
               git checkout $GIT_BRANCH
            '''
-        sh '''docker pull returntocorp/semgrep && \
+        sh '''docker pull returntocorp/semgrep:1.38.2 && \
             docker run \
             -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
             -e SEMGREP_REPO_NAME=$SEMGREP_REPO_NAME \
             -e SEMGREP_BASELINE_REF=$(git merge-base $GIT_BRANCH $CHANGE_TARGET) \
             -e SEMGREP_PR_ID=$SEMGREP_PR_ID \
             -v "$(pwd):$(pwd)" --workdir $(pwd) \
-            returntocorp/semgrep semgrep ci '''      
+            returntocorp/semgrep:1.38.2 semgrep ci '''      
       }
     }
     stage('semgrep-scan') {
