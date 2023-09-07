@@ -5,6 +5,7 @@ pipeline {
     SEMGREP_APP_TOKEN = credentials('SEMGREP_APP_TOKEN')
     // Set repo name to expected format
     SEMGREP_REPO_NAME = env.GIT_URL.replaceFirst(/^https:\/\/github.com\/(.*)$/, '$1')
+    SEMGREP_PR_ID = env.CHANGE_ID
   }
   stages {
     stage('Print-Vars') {
@@ -26,7 +27,7 @@ pipeline {
             -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
             -e SEMGREP_REPO_NAME=$SEMGREP_REPO_NAME \
             -e SEMGREP_BASELINE_REF=$(git merge-base $GIT_BRANCH $CHANGE_TARGET) \
-            -e SEMGREP_PR_ID=${env.CHANGE_ID} \
+            -e SEMGREP_PR_ID=$SEMGREP_PR_ID \
             -v "$(pwd):$(pwd)" --workdir $(pwd) \
             returntocorp/semgrep semgrep ci '''      
       }
