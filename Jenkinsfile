@@ -5,7 +5,7 @@ pipeline {
     SEMGREP_APP_TOKEN = credentials('SEMGREP_APP_TOKEN')
     // Set repo name to expected format
     SEMGREP_REPO_NAME = env.GIT_URL.replaceFirst(/^https:\/\/github.com\/(.*)$/, '$1')
-    SEMGREP_PR_ID = env.CHANGE_ID
+    SEMGREP_PR_ID = ${env.CHANGE_ID}
   }
   stages {
     stage('Print-Vars') {
