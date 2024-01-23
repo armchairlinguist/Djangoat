@@ -1,0 +1,13 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: semgrep
+  image: returntocorp/semgrep:latest
+  commands:
+    - git fetch origin main
+    - semgrep ci  
+  environment:
+    SEMGREP_APP_TOKEN:
+      from_secret: SEMGREP_APP_TOKEN
